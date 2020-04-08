@@ -25,8 +25,8 @@ public class DbCategories extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "category_name STRING NOT NULL," +
-                "category_type STRING," +
+                "category_name TEXT NOT NULL," +
+                "category_type TEXT," +
                 "created_at DEFAULT CURRENT_TIMESTAMP NOT NULL," +
                 "modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
 

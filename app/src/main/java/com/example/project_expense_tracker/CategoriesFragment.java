@@ -36,24 +36,25 @@ public class CategoriesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false);
+        View v= inflater.inflate(R.layout.fragment_categories, container, false);
 
-        ListView lv = (ListView) getView().findViewById(R.id.LVCategories);
-
+        DbTransactions myDb = new DbTransactions(getContext());
         ArrayList<String> categoriesFromDb = new ArrayList<>();
-
-        DbCategories myDb = new DbCategories(getContext());
-
         Cursor data = myDb.getData();
 
         while(data.moveToNext()){
-            categoriesFromDb.add(data.getString(1));
+            categoriesFromDb.add(data.getString(2)); // because 2 is the column of transaction_notes
         }
 
-        ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(getActivity(),android.R.layout.ca);
+        ListView lv = (ListView) v.findViewById(R.id.LVCategories);
 
-        //PROBLEM IN BELOW LINE. HOW TO USE ARRAY ADAPTER BIND INSIDE FRAGMENT
-        ArrayAdapter bind = new ArrayAdapter(getActivity(),R.layout.categories_template,categoriesFromDb);
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                categoriesFromDb);
 
+        lv.setAdapter(listViewAdapter);
+
+        return v;
     }
 }

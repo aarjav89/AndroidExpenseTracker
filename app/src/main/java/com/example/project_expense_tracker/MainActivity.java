@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -20,6 +21,8 @@ import java.util.Date;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    public String category_type="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +103,11 @@ public class MainActivity extends AppCompatActivity {
         if(btn_clicked == R.id.btnAddIncome){
             fr = new AddIncomeFragment();
         }
-        else{
+        else if(btn_clicked == R.id.btnAddExpense){
             fr = new AddExpenseFragment();
+        }
+        else {
+            fr = new AddCategFragment();
         }
 
         FragmentManager fm = getSupportFragmentManager();
@@ -112,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
         ft.remove(new HomeFragment());
         ft.remove(new TransactionsFragment());
         ft.remove(new AccountsFragment());
+        ft.remove(new AddIncomeFragment());
+        ft.remove(new AddExpenseFragment());
 
         ft.replace(R.id.fragment,fr);
         ft.commit();
@@ -187,6 +195,59 @@ public class MainActivity extends AppCompatActivity {
         ft.remove(new AccountsFragment());
         ft.remove(new AddIncomeFragment());
         ft.remove(new AddExpenseFragment());
+
+        ft.replace(R.id.fragment,fr);
+        ft.commit();
+
+    }
+
+    public void onRadioButtonClicked(View v){
+
+        boolean checked = ((RadioButton) v).isChecked();
+
+        // Check which radio button was clicked
+        switch(v.getId()) {
+            case R.id.rbIncome:
+                if (checked)
+                    category_type="I";
+                break;
+            case R.id.rbExpense:
+                if (checked)
+                    category_type = "E";
+                break;
+        }
+    }
+
+    public void addCateg(View v){
+        EditText name = (EditText) findViewById(R.id.ETCategName);
+
+        if(name.getText().toString().length() == 0){
+            Toast.makeText(this,"Please enter name of Category",Toast.LENGTH_LONG).show();
+        }
+
+
+        DbCategories myDb = new DbCategories(this);
+        boolean result = myDb.addData(name.getText().toString(),category_type);
+
+        if(result==true){
+            Toast.makeText(this,"Category Added",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this,"Category not Added",Toast.LENGTH_LONG).show();
+
+        }
+
+        Fragment fr = new CategoriesFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        ft.remove(new CategoriesFragment());
+        ft.remove(new HomeFragment());
+        ft.remove(new TransactionsFragment());
+        ft.remove(new AccountsFragment());
+        ft.remove(new AddIncomeFragment());
+        ft.remove(new AddExpenseFragment());
+        ft.remove(new AddCategFragment());
 
         ft.replace(R.id.fragment,fr);
         ft.commit();
