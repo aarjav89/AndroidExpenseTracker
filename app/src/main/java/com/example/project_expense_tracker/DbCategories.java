@@ -5,10 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DbCategories extends SQLiteOpenHelper {
 
-    public static final String DBName = "exp_tracker.db"; // .db is extension for sqllite
+    public static final String DBName = "tracker.db"; // .db is extension for sqllite
     public static final String TBLName = "categories";
     public static final String Col0 = "ID";
     public static final String Col1 = "category_name";
@@ -24,13 +25,21 @@ public class DbCategories extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+//        String query = "CREATE TABLE "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                "category_name TEXT NOT NULL," +
+//                "category_type TEXT," +
+//                "created_at DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+//                "modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
+
+//       String query = "CREATE TABLE categories (ID INTEGER PRIMARY KEY AUTOINCREMENT, category_name TEXT NOT NULL,category_type TEXT,created_at DEFAULT CURRENT_TIMESTAMP NOT NULL,modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
+
         String query = "CREATE TABLE "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "category_name TEXT NOT NULL," +
+                "category_name TEXT," +
                 "category_type TEXT," +
-                "created_at DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-                "modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
+                "created_at TEXT," +
+                "modified_at  TEXT)";
 
-
+        Log.e("query",query);
         db.execSQL(query);
     }
 

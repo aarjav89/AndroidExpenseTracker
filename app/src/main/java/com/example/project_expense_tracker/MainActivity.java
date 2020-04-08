@@ -227,6 +227,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         DbCategories myDb = new DbCategories(this);
+        myDb.getReadableDatabase();
+        myDb.getWritableDatabase();
         boolean result = myDb.addData(name.getText().toString(),category_type);
 
         if(result==true){

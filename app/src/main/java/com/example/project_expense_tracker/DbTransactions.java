@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbTransactions extends SQLiteOpenHelper {
 
-    public static final String DBName = "exp_tracker.db"; // .db is extension for sqllite
+    public static final String DBName = "tracker.db"; // .db is extension for sqllite
     public static final String TBLName = "transactions";
     public static final String Col0 = "ID";
     public static final String Col1 = "transaction_type";
