@@ -5,11 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DbAccounts extends SQLiteOpenHelper {
 
     public static final String DBName = "exp_tracker.db"; // .db is extension for sqllite
-    public static final String TBLName = "categories";
+    public static final String TBLName = "accounts";
     public static final String Col0 = "ID";
     public static final String Col1 = "account_name";
     public static final String Col3 = "created_at";
@@ -39,13 +40,21 @@ public class DbAccounts extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public boolean addData(String account_name){
+    public boolean addData(String name){
+
+        String query = "CREATE TABLE IF NOT EXISTS "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "account_name TEXT NOT NULL," +
+                "created_at DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
+
+
         SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
 
         ContentValues cv = new ContentValues(); // this class will be responsible for encoding your data in key value pair.
-        cv.put(Col1,account_name);
+        cv.put(Col1,name);
 
-        long result = db.insert(TBLName,null,cv);// 1st argument:Table name inwhich data is to be inserted.
+        long result = db.insert("accounts",null,cv);// 1st argument:Table name inwhich data is to be inserted.
         //out of these attributes, do i have a null attribute to pass in any field (id, tasks)? No. so we will pass null as 2nd argument.
 
         if(result == -1){
@@ -60,9 +69,9 @@ public class DbAccounts extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String query = "SELECT * FROM "+TBLName;
-
+        Log.i("Query is ",query);
         Cursor data = db.rawQuery(query,null); // rawQuery takes 2 arguments. 1st is query. 2nd is selectionArguments like where
-
+        Log.i("output is ",data.toString());
         return data;
     }
 

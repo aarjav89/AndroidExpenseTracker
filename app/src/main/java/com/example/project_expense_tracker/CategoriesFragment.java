@@ -38,12 +38,12 @@ public class CategoriesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v= inflater.inflate(R.layout.fragment_categories, container, false);
 
-        DbTransactions myDb = new DbTransactions(getContext());
+        DbCategories myDb = new DbCategories(getContext());
         ArrayList<String> categoriesFromDb = new ArrayList<>();
-        Cursor data = myDb.getData();
+        Cursor data = myDb.getData("All");
 
         while(data.moveToNext()){
-            categoriesFromDb.add(data.getString(2)); // because 2 is the column of transaction_notes
+            categoriesFromDb.add(data.getString(1)); // because 2 is the column of transaction_notes
         }
 
         ListView lv = (ListView) v.findViewById(R.id.LVCategories);

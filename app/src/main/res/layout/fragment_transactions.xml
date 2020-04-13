@@ -11,7 +11,7 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A1A5F8"
+        android:background="@drawable/woodtexture"
         tools:layout_editor_absoluteX="201dp"
         tools:layout_editor_absoluteY="179dp" />
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#97BAF6"
+    android:background="@drawable/woodtexture"
     tools:context=".AddIncomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/textView17"
@@ -117,7 +117,7 @@
         app:layout_constraintVertical_bias="0.813" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/spin_income_categ"
         android:layout_width="197dp"
         android:layout_height="24dp"
         android:layout_marginTop="28dp"

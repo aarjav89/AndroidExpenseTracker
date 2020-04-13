@@ -13,6 +13,7 @@
         android:id="@+id/accounts_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/woodtexture"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp" />
 
@@ -25,6 +26,30 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/accounts_screen"
-        app:layout_constraintTop_toTopOf="@+id/accounts_screen" />
+        app:layout_constraintTop_toTopOf="@+id/accounts_screen"
+        app:layout_constraintVertical_bias="0.131" />
+
+    <ListView
+        android:id="@+id/LVAccounts"
+        android:layout_width="402dp"
+        android:layout_height="519dp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnAddAcc"
+        android:layout_width="67dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="80dp"
+        android:onClick="showFrag"
+        android:text="+"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.049"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

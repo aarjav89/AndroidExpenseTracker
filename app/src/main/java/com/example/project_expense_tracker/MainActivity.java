@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -106,8 +107,11 @@ public class MainActivity extends AppCompatActivity {
         else if(btn_clicked == R.id.btnAddExpense){
             fr = new AddExpenseFragment();
         }
-        else {
+        else if(btn_clicked == R.id.btnAddCateg) {
             fr = new AddCategFragment();
+        }
+        else{
+            fr = new AddAccountFragment();
         }
 
         FragmentManager fm = getSupportFragmentManager();
@@ -130,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
         EditText notes = (EditText) findViewById(R.id.ETIncome_notes);
         EditText amount  = (EditText) findViewById(R.id.ETIncome_amount);
 
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
         if((amount.getText().toString().length() == 0) || (notes.getText().toString().length()==0)){
             Toast.makeText(this,"Please enter all fields",Toast.LENGTH_LONG).show();
             return;
@@ -137,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         DbTransactions myDB = new DbTransactions(this);
-        boolean result = myDB.addData("I", notes.getText().toString(), amount.getText().toString(),1,1);
+        boolean result = myDB.addData("I", notes.getText().toString(), amount.getText().toString(),1,1,currentDate.toString());
 
         if(result==true){
             Toast.makeText(this,"Transaction Added",Toast.LENGTH_LONG).show();
@@ -168,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
         EditText notes = (EditText) findViewById(R.id.ETExpense_notes);
         EditText amount  = (EditText) findViewById(R.id.ETExpense_amt);
 
+        String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
         if((amount.getText().toString().length() == 0) || (notes.getText().toString().length()==0)){
             Toast.makeText(this,"Please enter all fields",Toast.LENGTH_LONG).show();
             return;
@@ -175,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         DbTransactions myDB = new DbTransactions(this);
-        boolean result = myDB.addData("E", notes.getText().toString(), amount.getText().toString(),1,1);
+        boolean result = myDB.addData("E", notes.getText().toString(), amount.getText().toString(),1,1,currentDate.toString());
 
         if(result==true){
             Toast.makeText(this,"Transaction Added",Toast.LENGTH_LONG).show();
@@ -195,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
         ft.remove(new AccountsFragment());
         ft.remove(new AddIncomeFragment());
         ft.remove(new AddExpenseFragment());
+        ft.remove(new AddCategFragment());
+        ft.remove(new AddAccountFragment());
 
         ft.replace(R.id.fragment,fr);
         ft.commit();
@@ -219,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void addCateg(View v){
+
         EditText name = (EditText) findViewById(R.id.ETCategName);
 
         if(name.getText().toString().length() == 0){
@@ -227,8 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         DbCategories myDb = new DbCategories(this);
-        myDb.getReadableDatabase();
-        myDb.getWritableDatabase();
+
         boolean result = myDb.addData(name.getText().toString(),category_type);
 
         if(result==true){
@@ -250,9 +260,50 @@ public class MainActivity extends AppCompatActivity {
         ft.remove(new AddIncomeFragment());
         ft.remove(new AddExpenseFragment());
         ft.remove(new AddCategFragment());
+        ft.remove(new AddAccountFragment());
 
         ft.replace(R.id.fragment,fr);
         ft.commit();
 
     }
+
+    public void addAccount(View v){
+
+        EditText name = (EditText) findViewById(R.id.ETAccountName);
+
+        if(name.getText().toString().length() == 0){
+            Toast.makeText(this,"Please enter name of Account",Toast.LENGTH_LONG).show();
+        }
+
+
+        DbAccounts myAcc = new DbAccounts(this);
+
+        boolean result = myAcc.addData(name.getText().toString());
+
+        if(result==true){
+            Toast.makeText(this,"Account Added",Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this,"Account not Added",Toast.LENGTH_LONG).show();
+
+        }
+
+        Fragment fr = new AccountsFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        ft.remove(new CategoriesFragment());
+        ft.remove(new HomeFragment());
+        ft.remove(new TransactionsFragment());
+        ft.remove(new AccountsFragment());
+        ft.remove(new AddIncomeFragment());
+        ft.remove(new AddExpenseFragment());
+        ft.remove(new AddCategFragment());
+        ft.remove(new AddAccountFragment());
+
+        ft.replace(R.id.fragment,fr);
+        ft.commit();
+
+    }
+
 }

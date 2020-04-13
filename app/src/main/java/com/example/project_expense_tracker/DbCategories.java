@@ -25,13 +25,6 @@ public class DbCategories extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-//        String query = "CREATE TABLE "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-//                "category_name TEXT NOT NULL," +
-//                "category_type TEXT," +
-//                "created_at DEFAULT CURRENT_TIMESTAMP NOT NULL," +
-//                "modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
-
-//       String query = "CREATE TABLE categories (ID INTEGER PRIMARY KEY AUTOINCREMENT, category_name TEXT NOT NULL,category_type TEXT,created_at DEFAULT CURRENT_TIMESTAMP NOT NULL,modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
 
         String query = "CREATE TABLE "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "category_name TEXT," +
@@ -51,7 +44,16 @@ public class DbCategories extends SQLiteOpenHelper {
     }
 
     public boolean addData(String category_name,String category_type){
+
+        String query = "CREATE TABLE IF NOT EXISTS "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "category_name TEXT," +
+                "category_type TEXT," +
+                "created_at TEXT," +
+                "modified_at  TEXT)";
+
+        Log.i("Cat type is :",category_type);
         SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
 
         ContentValues cv = new ContentValues(); // this class will be responsible for encoding your data in key value pair.
         cv.put(Col1,category_name);
@@ -68,10 +70,15 @@ public class DbCategories extends SQLiteOpenHelper {
         }
     }
 
-    public Cursor getData(){
+    public Cursor getData(String parameter){
+        String query="";
         SQLiteDatabase db = this.getWritableDatabase();
-
-        String query = "SELECT * FROM "+TBLName;
+        if((parameter=="I") || (parameter=="E")){
+            query = "SELECT * FROM " + TBLName + " WHERE category_type='" + parameter + "'";
+        }
+        else
+            query = "SELECT * FROM "+TBLName;
+        Log.i("Query is ",query);
 
         Cursor data = db.rawQuery(query,null); // rawQuery takes 2 arguments. 1st is query. 2nd is selectionArguments like where
 

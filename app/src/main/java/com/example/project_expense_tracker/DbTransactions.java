@@ -26,7 +26,7 @@ public class DbTransactions extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query = "CREATE TABLE "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+        String query = "CREATE TABLE IF NOT EXISTS "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                                                     "transaction_type TEXT NOT NULL," +
                                                     "transaction_notes TEXT," +
                                                     "transaction_amt REAL NOT NULL," +
@@ -46,7 +46,7 @@ public class DbTransactions extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public boolean addData(String transaction_type,String transaction_notes, String transaction_amt,Integer category_id, Integer account_id){
+    public boolean addData(String transaction_type,String transaction_notes, String transaction_amt,Integer category_id, Integer account_id, String date){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues(); // this class will be responsible for encoding your data in key value pair.
@@ -55,6 +55,7 @@ public class DbTransactions extends SQLiteOpenHelper {
         cv.put(Col3,transaction_amt);
         cv.put(Col4,category_id);
         cv.put(Col5,account_id);
+        cv.put(Col6,date);
 
         long result = db.insert(TBLName,null,cv);// 1st argument:Table name inwhich data is to be inserted.
         //out of these attributes, do i have a null attribute to pass in any field (id, tasks)? No. so we will pass null as 2nd argument.
@@ -68,12 +69,52 @@ public class DbTransactions extends SQLiteOpenHelper {
     }
 
     public Cursor getData(){
+
+        String query = "CREATE TABLE IF NOT EXISTS "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "transaction_type TEXT NOT NULL," +
+                "transaction_notes TEXT," +
+                "transaction_amt REAL NOT NULL," +
+                "category_id REAL NOT NULL," +
+                "account_id REAL NOT NULL," +
+                "created_at DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
+
+
         SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
 
-        String query = "SELECT * FROM "+TBLName;
 
-        Cursor data = db.rawQuery(query,null); // rawQuery takes 2 arguments. 1st is query. 2nd is selectionArguments like where
+        String query1 = "SELECT * FROM "+TBLName;
+
+        Cursor data = db.rawQuery(query1,null); // rawQuery takes 2 arguments. 1st is query. 2nd is selectionArguments like where
 
         return data;
+    }
+
+    public int getTotal(String IE){
+
+        String query = "CREATE TABLE IF NOT EXISTS "+ TBLName + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "transaction_type TEXT NOT NULL," +
+                "transaction_notes TEXT," +
+                "transaction_amt REAL NOT NULL," +
+                "category_id REAL NOT NULL," +
+                "account_id REAL NOT NULL," +
+                "created_at DEFAULT CURRENT_TIMESTAMP NOT NULL," +
+                "modified_at DEFAULT CURRENT_TIMESTAMP NOT NULL)";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
+
+        int total = 0;
+
+
+        String query1 = "SELECT transaction_amt FROM "+TBLName + " WHERE transaction_type='" +IE+"'";
+
+        Cursor data = db.rawQuery(query1,null); // rawQuery takes 2 arguments. 1st is query. 2nd is selectionArguments like where
+
+        while(data.moveToNext()){
+            total += Integer.parseInt(data.getString(0)); // because 0 is the column of transaction_amt
+        }
+        return total;
     }
 }
