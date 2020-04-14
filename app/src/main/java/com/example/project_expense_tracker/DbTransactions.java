@@ -5,6 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class DbTransactions extends SQLiteOpenHelper {
 
@@ -85,6 +89,12 @@ public class DbTransactions extends SQLiteOpenHelper {
 
 
         String query1 = "SELECT * FROM "+TBLName;
+
+//        String query2 = "SELECT * FROM "+ TBLName + " WHERE strftime('%Y',created_at) = strftime('%Y',date('now')) AND  strftime('%m',created_at) = strftime('%m',date('now'))";
+//        Log.i("Query 2 is :",query2);
+//        Cursor data1 = db.rawQuery(query2,null);
+//        Log.i("1st record :", data1.getString(2));
+
 
         Cursor data = db.rawQuery(query1,null); // rawQuery takes 2 arguments. 1st is query. 2nd is selectionArguments like where
 

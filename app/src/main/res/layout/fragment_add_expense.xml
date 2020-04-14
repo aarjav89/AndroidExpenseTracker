@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/woodtexture"
-        tools:layout_editor_absoluteX="-8dp"
-        tools:layout_editor_absoluteY="62dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="124dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -69,15 +69,15 @@
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="152dp"
+        android:layout_marginTop="48dp"
         android:backgroundTint="#000000"
         android:onClick="addExpense"
         android:text="DONE"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="@+id/textView10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.436"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <TextView
         android:id="@+id/tvExpense_date"
@@ -94,25 +94,28 @@
         android:id="@+id/ETExpense_amt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="$0.00"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/ETExpense_notes"
-        app:layout_constraintTop_toBottomOf="@+id/ETExpense_notes"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.282"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/ETExpense_notes" />
 
     <EditText
         android:id="@+id/ETExpense_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Some Expense Note"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/spin_expense_categ"
+        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
         app:layout_constraintTop_toBottomOf="@+id/spin_expense_categ" />
 
     <TextView
@@ -126,18 +129,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
+
     <Spinner
         android:id="@+id/spin_expense_categ"
-        android:layout_width="197dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="36dp"
-        android:background="#00000000"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:spinnerMode="dropdown"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvExpense_date"
-        app:layout_constraintTop_toBottomOf="@+id/tvExpense_date"
-        app:layout_constraintVertical_bias="0.013" />
+        app:layout_constraintStart_toStartOf="@+id/ETExpense_amt"
+        app:layout_constraintTop_toBottomOf="@+id/tvExpense_date" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
