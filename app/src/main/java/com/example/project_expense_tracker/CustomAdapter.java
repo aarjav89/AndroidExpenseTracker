@@ -2,6 +2,7 @@ package com.example.project_expense_tracker;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,13 +54,23 @@ public class CustomAdapter extends BaseAdapter {
         TextView tv_trans_note = (TextView) view.findViewById(R.id.tvTransNote_template);
         TextView tv_trans_amt = (TextView) view.findViewById(R.id.tvTransAmt_template);
         TextView tv_trans_date = (TextView) view.findViewById(R.id.tvTransDate_template);
+        TextView tv_sign = (TextView) view.findViewById(R.id.tvSignTemplate);
 
+        Log.i("data in type :", type.get(position));
+        if(type.get(position).equals("I")) {
+            tv_trans_amt.setTextColor(Color.parseColor("#738b28"));
+            tv_sign.setTextColor(Color.parseColor("#738b28"));
+            tv_sign.setText("$");
+            tv_trans_note.setTextColor(Color.parseColor("#738b28"));
+        }
+        else {
+            tv_trans_amt.setTextColor(Color.RED);
 
-        if(type.get(position) == "I")
-            tv_trans_note.setTextColor(Color.GREEN);
-
-        else
+            tv_sign.setTextColor(Color.RED);
+            tv_sign.setText("(-)$");
             tv_trans_note.setTextColor(Color.RED);
+
+        }
 
         tv_trans_note.setText(trans.get(position)); // setting the value from arraylist to the textview of template
         tv_trans_amt.setText(amt.get(position));
